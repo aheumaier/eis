@@ -17,8 +17,8 @@ Jeweler::Tasks.new do |gem|
   gem.name = "eis"
   gem.homepage = "http://github.com/aheumaier/eis"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.summary = %Q{EIS - Ela Integration Service}
+  gem.description = %Q{EIS is simple description-based model for IntegrationsCheck. EIS loads descriptive files(yml/json) and performs modules-based resource checks giving back an json-report as a service. Give it a module directory and it will parse any relevant files within based on a given data set }
   gem.email = "developer@andreasheumaier.de"
   gem.authors = ["Andreas Heumaier"]
   # dependencies defined in Gemfile
@@ -32,12 +32,12 @@ Rake::TestTask.new(:test) do |test|
   test.verbose = true
 end
 
-require 'rcov/rcovtask'
-Rcov::RcovTask.new do |test|
-  test.libs << 'test'
-  test.pattern = 'test/**/test_*.rb'
-  test.verbose = true
-  test.rcov_opts << '--exclude "gems/*"'
+
+desc "Run RSpec with code coverage"
+task :coverage do
+  require "simplecov"
+  ENV['COVERAGE'] = true
+  Rake::Task["spec"].execute
 end
 
 task :default => :test

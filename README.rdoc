@@ -1,6 +1,6 @@
 = eis
 
-Description goes here.
+EIS is simple description-based model for IntegrationsCheck. EIS loads descriptive files(yml/json) and performs modules-based resource checks giving back an json-report as a service. Give it a module directory and it will parse any relevant files within based on a given data set …
 
 == Contributing to eis
  
