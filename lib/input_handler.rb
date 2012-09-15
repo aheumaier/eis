@@ -15,6 +15,7 @@ module Eis
     attr_accessor :config_file
 
     def initialize()
+      puts "EIS::InputHander initialize"
       get_configs()
       load_config()
     end

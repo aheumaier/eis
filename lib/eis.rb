@@ -6,8 +6,9 @@
 
 require 'socket'
 require 'yaml'
+require "pp"
 
-Dir['./*.rb'].each {|lib| puts "require "; require_relative lib }
+Dir['lib/*.rb'].each {|lib| puts "require "+lib; require "./"+lib }
 Dir['../modules/*.rb'].each do |file|
   puts "File is " + file.to_s
   require_relative file;
@@ -16,6 +17,8 @@ Dir['../modules/*.rb'].each do |file|
 end
 
 module Eis
+  $DEBUG = true
+
   class Runner
 
     class << self
@@ -41,11 +44,11 @@ module Eis
     # all modules from ./modules and parsing
     # configuration files - config.yml is default
     # ==== Examples
-    #  it = Base.new
+    #  it = Runner.new
     #
     def initialize()
       begin
-        puts "Eis::Runner::init called"
+        puts "Eis::Runner::init called" if $DEBUG
         @loaded_modules = []
         generate_module_list()
         handle = InputHandler.new()
@@ -79,12 +82,13 @@ module Eis
     #
     #
     def generate_module_list
-      puts "Eis::Runner::gen_module_list called"
+      puts "Eis::Runner::gen_module_list called"  if $DEBUG
       Dir["modules/*.rb"].each {|file|
         puts "Error: No modules loaded"; exit 1 if loaded_modules.first.nil?
         @loaded_modules << self.class.const_get(
             File.basename(file).gsub('.rb','').split("_").map{|ea| ea.capitalize}.to_s
         )}
+      pp @loaded_modules
     end
 
     #
